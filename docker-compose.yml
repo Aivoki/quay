@@ -19,7 +19,7 @@ services:
       - redis_data:/var/lib/redis/data:Z
 
   web-quay:
-    image: coreos/quay:v2.9.2
+    image: quay.io/redhat/quay:v3.1.3
     restart: always
     volumes:
       - quay_config:/conf/stack
