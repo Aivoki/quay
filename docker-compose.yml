@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  mysql-quay:
+    image: rhscl/mysql-57-rhel7
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql/data:Z
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_USER: ${MYSQL_USER:-quay_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-quay}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-registry}
+
+  redis-quay:
+    image: rhscl/redis-32-rhel7:latest
+    restart: always
+    volumes:
+      - redis_data:/var/lib/redis/data:Z
+
+  web-quay:
+    image: coreos/quay:v2.9.2
+    restart: always
+    volumes:
+      - quay_config:/conf/stack
+      - quay_storage:/datastorage
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - mysql-quay
+      - redis-quay
+
+volumes:
+  db_data: {}
+  redis_data: {}
+  quay_config: {}
+  quay_storage: {}
