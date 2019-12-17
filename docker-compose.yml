@@ -5,7 +5,10 @@ services:
     image: ${MYSQL_IMAGE:-rhscl/mysql-57-rhel7:latest}
     restart: always
     volumes:
-      - mysql_data:/var/lib/mysql/data:Z
+      - type: bind
+        source: ./mysql/data
+        target: /var/lib/mysql/data
+        read_only: false
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
       MYSQL_USER: ${MYSQL_USER:-quay_app}
@@ -16,14 +19,23 @@ services:
     image: ${REDIS_IMAGE:-rhscl/redis-32-rhel7:latest}
     restart: always
     volumes:
-      - redis_data:/var/lib/redis/data:Z
+      - type: bind
+        source: ./redis/data
+        target: /var/lib/redis/data
+        read_only: false
 
   registry:
     image: ${QUAY_IMAGE:-quay.io/redhat/quay:v3.1.3}
     restart: always
     volumes:
-      - registry_config:/conf/stack
-      - registry_storage:/datastorage
+      - type: bind
+        source: ./registry/config
+        target: /conf/stack
+        read_only: false
+      - type: bind
+        source: ./registry/datastorage
+        target: /datastorage
+        read_only: false
     ports:
       - "443:8443"
       - "80:8080"
