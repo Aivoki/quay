@@ -21,6 +21,14 @@ services:
         source: ./redis/data
         target: /var/lib/redis/data
 
+  postgres:
+    image: ${IMAGE_POSTGRES}
+    restart: always
+    volumes:
+      - type: bind
+        source: ./postgres/data
+        target: /var/lib/postgresql/data
+
   registry:
     image: ${IMAGE_QUAY}
     restart: always
