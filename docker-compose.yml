@@ -24,6 +24,10 @@ services:
   postgres:
     image: ${IMAGE_POSTGRES}
     restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clair}
+      POSTGRES_USER: ${POSTGRES_USER:-clair_app}
+      POSTGRES_DB: ${POSTGRES_DB:-clair}
     volumes:
       - type: bind
         source: ./postgres/data
