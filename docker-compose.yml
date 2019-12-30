@@ -33,6 +33,13 @@ services:
         source: ./postgres/data
         target: /var/lib/postgresql/data
 
+  clair:
+    image: ${IMAGE_CLAIR}
+    restart: always
+    volumes:
+      - "./registry/config/security_scanner.pem:/clair/config/security_scanner.pem"
+      - "./clair/config/config-highavailability.yaml:/clair/config/config.yaml"
+
   registry:
     image: ${IMAGE_QUAY}
     restart: always
