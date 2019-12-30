@@ -22,17 +22,17 @@ services:
     image: quay.io/redhat/quay:v3.1.3
     restart: always
     volumes:
-      - quay_config:/conf/stack
-      - quay_storage:/datastorage
+      - registry_config:/conf/stack
+      - registry_storage:/datastorage
     ports:
-      - "443:443"
-      - "80:80"
+      - "443:8443"
+      - "80:8080"
     depends_on:
-      - mysql-quay
-      - redis-quay
+      - mysql
+      - redis
 
 volumes:
-  db_data: {}
+  mysql_data: {}
   redis_data: {}
-  quay_config: {}
-  quay_storage: {}
+  registry_config: {}
+  registry_storage: {}
