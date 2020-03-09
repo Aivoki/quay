@@ -37,8 +37,9 @@ services:
     image: ${IMAGE_CLAIR}
     restart: always
     volumes:
-      - "./registry/config/security_scanner.pem:/clair/config/security_scanner.pem"
-      - "./clair/config/config-highavailability.yaml:/clair/config/config.yaml"
+      - type: bind
+        source: ./clair/config
+        target: /clair/config
 
   registry:
     image: ${IMAGE_QUAY}
