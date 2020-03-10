@@ -15,6 +15,12 @@ services:
   clair:
     image: ${IMAGE_CLAIR}
     restart: always
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      FTP_PROXY: ${FTP_PROXY}
+      SOCKS_PROXY: ${SOCKS_PROXY}
+      NO_PROXY: ${NO_PROXY}
     volumes:
       - type: bind
         source: ./clair/config
