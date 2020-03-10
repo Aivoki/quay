@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  postgres:
+    image: ${IMAGE_POSTGRES}
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clair}
+      POSTGRES_USER: ${POSTGRES_USER:-clair_app}
+      POSTGRES_DB: ${POSTGRES_DB:-clair}
+    volumes:
+      - type: bind
+        source: ./postgres/data
+        target: /var/lib/postgresql/data
+
+  clair:
+    image: ${IMAGE_CLAIR}
+    restart: always
+    volumes:
+      - type: bind
+        source: ./clair/config
+        target: /clair/config
+    depends_on:
+      - postgres

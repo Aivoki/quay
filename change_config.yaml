@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+
+  registry:
+    image: ${IMAGE_QUAY}
+    restart: always
+    command: config ${PASSWORD_CONFIG}
+    volumes:
+      - type: bind
+        source: ./registry/conf/stack
+        target: /conf/stack
+      - type: bind
+        source: ./registry/datastorage
+        target: /datastorage
+    ports:
+      - "443:8443"
+      - "80:8080"
+    depends_on:
+      - mysql
+      - redis

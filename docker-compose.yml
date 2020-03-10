@@ -21,26 +21,6 @@ services:
         source: ./redis/data
         target: /var/lib/redis/data
 
-  postgres:
-    image: ${IMAGE_POSTGRES}
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clair}
-      POSTGRES_USER: ${POSTGRES_USER:-clair_app}
-      POSTGRES_DB: ${POSTGRES_DB:-clair}
-    volumes:
-      - type: bind
-        source: ./postgres/data
-        target: /var/lib/postgresql/data
-
-  clair:
-    image: ${IMAGE_CLAIR}
-    restart: always
-    volumes:
-      - type: bind
-        source: ./clair/config
-        target: /clair/config
-
   registry:
     image: ${IMAGE_QUAY}
     restart: always

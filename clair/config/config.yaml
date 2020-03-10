@@ -46,7 +46,7 @@ jwtproxy:
         options:
           # The ID of the service key generated for Clair. The ID is returned when setting up
           # the key in [Quay Enterprise Setup](security-scanning.md)
-          key_id: fa779edc4fd0bc13911036d8c7219acd426e8003a3f3bd76d5a4246cb670e350
+          key_id: 8e7c97aae4552a6776fc8589402ff3273a2408c9e729cc6484d3d40544615f1e
           private_key_path: /clair/config/security_scanner.pem
 
 
