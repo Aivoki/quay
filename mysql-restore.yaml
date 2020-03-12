@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  mysql:
+    image: ${IMAGE_MYSQL}
+    restart: always
+    volumes:
+      - type: bind
+        source: ./mysql/data
+        target: /var/lib/mysql/data
+      - type: bind
+        source: ./mysql/docker-entrypoint-initdb.d
+        target: /docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_USER: ${MYSQL_USER:-quay_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-quay}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-registry}
