@@ -7,7 +7,7 @@ function stop(){
 }
 
 function start(){
-	echo -e "Iniciando configuração do Quay Registry para Primeira instalação"
+	echo -e "Iniciando Quay Registry $2"
 	docker-compose -f ./docker-compose.yaml -f clair.yaml $1 up -d
 }
 
@@ -22,7 +22,7 @@ function primeiraVez() {
 	chmod 777 ./mysql -R
 	rm -rf ./mysql/data/*
 
-	start "-f ./initial_config.yaml"
+	start "-f ./initial_config.yaml" "primeira configuração"
 }
 
 function configurado(){
