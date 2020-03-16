@@ -1,4 +1,5 @@
 mysql/
 postgres/
 redis/
+registry/
 clair/
