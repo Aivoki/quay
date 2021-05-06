@@ -1,17 +1,17 @@
 version: '3.7'
 services:
-  mysql:
-    image: ${IMAGE_MYSQL}
+  postgresql:
+    image: ${IMAGE_POSTGRESQL}
     restart: always
     volumes:
       - type: bind
-        source: ./mysql/data
-        target: /var/lib/mysql/data
+        source: ./postgresql/data
+        target: /var/lib/pgsql/data
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      MYSQL_USER: ${MYSQL_USER:-quay_app}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-quay}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-registry}
+      POSTGRESQL_ADMIN_PASSWORD: ${POSTGRESQL_ADMIN_PASSWORD:-root}
+      POSTGRESQL_USER: ${POSTGRESQL_USER:-quay_app}
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD:-quay}
+      POSTGRESQL_DATABASE: ${POSTGRESQL_DATABASE:-registry}
 
   redis:
     image: ${IMAGE_REDIS}
@@ -38,5 +38,5 @@ services:
       - "443:8443"
       - "80:8080"
     depends_on:
-      - mysql
+      - postgresql
       - redis

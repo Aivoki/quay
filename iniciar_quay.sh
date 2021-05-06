@@ -8,19 +8,16 @@ function stop(){
 
 function start(){
 	echo -e "Iniciando Quay Registry $2"
-	docker-compose -f ./docker-compose.yaml -f clair.yaml $1 up -d
+	docker-compose -f ./docker-compose.yaml $1 up -d
 }
 
 function primeiraVez() {
 
 	stop
 
-	echo -e "Ajustando pasta do postgres"
-	rm -rf ./postgres/data/.gitkeep
-
-	echo -e "Ajustando pasta do mysql"
-	chmod 777 ./mysql -R
-	rm -rf ./mysql/data/*
+	echo -e "Ajustando pasta do postgresql"
+	chmod 777 ./postgresql -R
+	sudo rm -rf ./postgresql/data/*
 
 	start "-f ./initial_config.yaml" "primeira configuração"
 }
