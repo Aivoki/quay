@@ -8,7 +8,7 @@ function stop(){
 
 function start(){
 	echo -e "Iniciando Quay Registry $2"
-	docker-compose -f ./docker-compose.yaml $1 up -d
+	docker-compose -f ./docker-compose.yaml $1 up -d $3
 }
 
 function primeiraVez() {
@@ -19,9 +19,10 @@ function primeiraVez() {
 	chmod 777 ./postgresql -R
 	sudo rm -rf ./postgresql/data/*
 
-	start "-f ./initial_config.yaml" "primeira configuração"
+	start "-f ./initial_config.yaml" "Iniciando bancos e adicionando extensão" "redis postgresql"
 	sleep 20
-	docker-compose exec postgresql /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d ${POSTGRES_DB} -U ${POSTGRES_USER}'
+	docker-compose exec postgresql /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d ${POSTGRESQL_DATABASE} -U postgres'
+	start "-f ./initial_config.yaml" "Iniciando web" "registry"
 }
 
 function configurado(){
