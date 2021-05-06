@@ -20,6 +20,8 @@ function primeiraVez() {
 	sudo rm -rf ./postgresql/data/*
 
 	start "-f ./initial_config.yaml" "primeira configuração"
+	sleep 20
+	docker-compose exec postgresql /bin/bash -c 'echo "CREATE EXTENSION IF NOT EXISTS pg_trgm" | psql -d ${POSTGRES_DB} -U ${POSTGRES_USER}'
 }
 
 function configurado(){
