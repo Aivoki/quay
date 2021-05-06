@@ -8,10 +8,10 @@ services:
         source: ./postgresql/data
         target: /var/lib/pgsql/data
     environment:
-      POSTGRES_ADMIN_PASSWORD: ${POSTGRESQL_ADMIN_PASSWORD:-root}
-      POSTGRES_USER: ${POSTGRESQL_USER:-quay_app}
-      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD:-quay}
-      POSTGRES_DATABASE: ${POSTGRESQL_DATABASE:-registry}
+      POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:-root}
+      POSTGRES_USER: ${POSTGRES_USER:-quay_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quay}
+      POSTGRES_DB: ${POSTGRES_DB:-registry}
 
   redis:
     image: ${IMAGE_REDIS}
