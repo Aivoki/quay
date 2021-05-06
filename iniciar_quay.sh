@@ -3,7 +3,8 @@
 
 function stop(){
 	echo -e "Parando containers já iniciados"
-	docker-compose -f ./docker-compose.yaml -f ./initial_config.yaml -f ./clair.yaml down
+	docker-compose -f ./docker-compose.yaml -f ./initial_config.yaml -f ./clair.yaml stop $1
+	docker-compose -f ./docker-compose.yaml -f ./initial_config.yaml -f ./clair.yaml rm --force $1
 }
 
 function start(){
@@ -25,6 +26,13 @@ function primeiraVez() {
 	start "-f ./initial_config.yaml" "Iniciando web" "registry"
 }
 
+function alterarExistente(){
+	stop "registry"
+
+	echo -e "Iniciando containers"
+	start "-f ./initial_config.yaml" "Iniciando web" "registry"
+}
+
 function configurado(){
 	
 	stop
@@ -38,6 +46,7 @@ main(){
 	echo -e "\n1 -\tIniciar primeira instalação do Quay Registry"
 	echo -e "2 -\tSomente iniciar Quay Registry já configurado"
 	echo -e "3 -\tParar todos os containers"
+	echo -e "4 -\tAlterar instalação existente"
 	while [[ true ]]; do
 		read opcao
 		echo $pwd
@@ -49,6 +58,9 @@ main(){
 				break
 			;;
 			3) stop
+				break
+			;;
+			4) alterarExistente
 				break
 			;;
 			*) echo -e "Opção inválida"
