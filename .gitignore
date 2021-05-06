@@ -3,3 +3,4 @@ postgres/
 redis/
 registry/
 clair/
+postgresql/
