@@ -8,10 +8,12 @@ services:
         source: ./postgresql/data
         target: /var/lib/pgsql/data
     environment:
-      POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD:-root}
-      POSTGRES_USER: ${POSTGRES_USER:-quay_app}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quay}
-      POSTGRES_DB: ${POSTGRES_DB:-registry}
+      POSTGRESQL_ADMIN_PASSWORD: ${POSTGRESQL_ADMIN_PASSWORD:-root}
+      POSTGRESQL_USER: ${POSTGRESQL_USER:-quay_app}
+      POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD:-quay}
+      POSTGRESQL_DATABASE: ${POSTGRESQL_DATABASE:-registry}
+    ports:
+      - "5432:5432"
 
   redis:
     image: ${IMAGE_REDIS}
@@ -20,6 +22,8 @@ services:
       - type: bind
         source: ./redis/data
         target: /var/lib/redis/data
+    ports:
+      - "6379:6379"
 
   registry:
     image: ${IMAGE_QUAY}
